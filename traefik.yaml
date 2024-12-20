@@ -14,4 +14,7 @@ entryPoints:
 log:
   level: INFO
 providers:
-  docker: {}
+  docker:
+    exposedByDefault: false
+    httpClientTimeout: "10"
+    useBindPortIP: true
