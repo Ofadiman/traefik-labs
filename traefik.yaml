@@ -9,10 +9,10 @@ entryPoints:
         entryPoint:
           scheme: https
           to: webSecure
-  webSecure:
-    address: :443
   webFourTwenty:
     address: :420
+  webSecure:
+    address: :443
 log:
   level: INFO
 providers:
