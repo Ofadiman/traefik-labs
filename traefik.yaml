@@ -1,6 +1,16 @@
 api:
   dashboard: true
   insecure: true
+entryPoints:
+  web:
+    address: :80
+    http:
+      redirections:
+        entryPoint:
+          scheme: https
+          to: websecure
+  websecure:
+    address: :443
 log:
   level: INFO
 providers:

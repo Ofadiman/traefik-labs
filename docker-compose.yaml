@@ -3,6 +3,7 @@ services:
     image: traefik:v3.2.3
     ports:
       - 80:80
+      - 443:443
       # Expose traefik dashboard on port 8080. Dashboard is enabled by passing `--api.insecure=true` option.
       - 8080:8080
     volumes:
@@ -14,4 +15,8 @@ services:
       replicas: 2
     image: traefik/whoami:v1.10
     labels:
+      - traefik.enable=true
+      - traefik.http.routers.whoami.entrypoints=websecure
       - traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)
+      - traefik.http.routers.whoami.tls=true
+      - traefik.http.services.whoami.loadbalancer.server.port=80
