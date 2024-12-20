@@ -1,0 +1,11 @@
+services:
+  traefik:
+    image: traefik:v3.2.3
+    command: --api.insecure=true --providers.docker
+    ports:
+      - 80:80
+      # Expose traefik dashboard on port 8080. Dashboard is enabled by passing `--api.insecure=true` option.
+      - 8080:8080
+    volumes:
+      # Allow traefik to listen to docker events.
+      - /var/run/docker.sock:/var/run/docker.sock
