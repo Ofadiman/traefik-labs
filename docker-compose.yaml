@@ -1,4 +1,12 @@
 services:
+  nginx:
+    image: nginx:1.27.3
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.nginx.entrypoints=websecure
+      - traefik.http.routers.nginx.rule=Host(`nginx.docker.localhost`)
+      - traefik.http.routers.nginx.tls=true
+      - traefik.http.services.nginx.loadbalancer.server.port=80
   traefik:
     image: traefik:v3.2.3
     ports:
