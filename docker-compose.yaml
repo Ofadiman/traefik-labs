@@ -3,7 +3,7 @@ services:
     image: nginx:1.27.3
     labels:
       - traefik.enable=true
-      - traefik.http.routers.nginx.entrypoints=websecure
+      - traefik.http.routers.nginx.entrypoints=webFourTwenty
       - traefik.http.routers.nginx.rule=Host(`nginx.docker.localhost`)
       - traefik.http.routers.nginx.service=nginx
       - traefik.http.routers.nginx.tls=true
@@ -13,6 +13,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 420:420
       # Expose traefik dashboard on port 8080. Dashboard is enabled by passing `--api.insecure=true` option.
       - 8080:8080
     volumes:
@@ -25,7 +26,7 @@ services:
     image: traefik/whoami:v1.10
     labels:
       - traefik.enable=true
-      - traefik.http.routers.whoami.entrypoints=websecure
+      - traefik.http.routers.whoami.entrypoints=webSecure
       - traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)
       - traefik.http.routers.whoami.service=whoami
       - traefik.http.routers.whoami.tls=true

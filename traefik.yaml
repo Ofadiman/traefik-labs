@@ -8,9 +8,11 @@ entryPoints:
       redirections:
         entryPoint:
           scheme: https
-          to: websecure
-  websecure:
+          to: webSecure
+  webSecure:
     address: :443
+  webFourTwenty:
+    address: :420
 log:
   level: INFO
 providers:
