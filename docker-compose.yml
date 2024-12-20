@@ -12,5 +12,7 @@ services:
 
   whoami:
     image: traefik/whoami:v1.10
+    deploy:
+      replicas: 2
     labels:
       - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
