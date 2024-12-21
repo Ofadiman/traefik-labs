@@ -1,3 +1,7 @@
+accessLog:
+  filters:
+    statusCodes:
+      - "404"
 api:
   dashboard: true
   insecure: true
@@ -13,10 +17,9 @@ entryPoints:
     address: :443
 log:
   level: INFO
-accessLog:
-  filters:
-    statusCodes:
-      - "404"
+metrics:
+  # Prometheus metrics are available at http://localhost:8080/metrics.
+  prometheus: {}
 providers:
   docker:
     exposedByDefault: false
