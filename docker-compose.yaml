@@ -1,4 +1,18 @@
 services:
+  grafana:
+    image: grafana/grafana-oss:11.4.0
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.grafana.entrypoints=webSecure
+      - traefik.http.routers.grafana.rule=Host(`grafana.docker.localhost`)
+      - traefik.http.routers.grafana.service=grafana
+      - traefik.http.routers.grafana.tls=true
+      - traefik.http.services.grafana.loadbalancer.server.port=3000
+    volumes:
+      - ./dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
+      - ./grafana-data-sources.yml:/etc/grafana/provisioning/datasources/grafana-data-sources.yml
+      - ./grafana.ini:/etc/grafana/grafana.ini
+      - ./traefik-dashboard.json:/etc/grafana/provisioning/dashboards/traefik-dashboard.json
   nginx:
     image: nginx:1.27.3
     labels:
