@@ -1,6 +1,6 @@
 # Traefik Labs
 
-Notes and code examples from [The Complete Traefik Training Course](https://www.udemy.com/course/the-complete-traefik-training-course/).
+Notes from [udemy course](https://www.udemy.com/course/the-complete-traefik-training-course/) extended with my own code.
 
 ## Configuration
 
