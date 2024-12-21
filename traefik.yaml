@@ -13,8 +13,10 @@ entryPoints:
     address: :443
 log:
   level: INFO
+accessLog:
+  filters:
+    statusCodes:
+      - "404"
 providers:
   docker:
     exposedByDefault: false
-    httpClientTimeout: "10"
-    useBindPortIP: true
