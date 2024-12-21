@@ -62,6 +62,9 @@ services:
       - 80:80
       - 443:443
     volumes:
+      - ./dynamic.yaml:/etc/traefik/dynamic.yaml
+      - ./tls-certificate.pem:/etc/traefik/tls-certificate.pem
+      - ./tls-key.pem:/etc/traefik/tls-key.pem
       - ./traefik.yaml:/etc/traefik/traefik.yaml
       # Allow traefik to listen to docker events.
       - /var/run/docker.sock:/var/run/docker.sock
