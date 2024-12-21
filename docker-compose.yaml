@@ -49,11 +49,18 @@ services:
         - healthcheck
       timeout: 1s
     image: traefik:v3.2.3
+    labels:
+      - traefik.enable=true
+      - traefik.http.middlewares.basic-auth-protection.basicauth.users=admin:$$2y$$05$$og5odDYumPu9AcYjsQVTjeQtQHFQSRsjZjAAgERYeqYx932c7lU5.
+      - traefik.http.routers.dashboard.entrypoints=webSecure
+      - traefik.http.routers.dashboard.middlewares=basic-auth-protection@docker
+      - traefik.http.routers.dashboard.rule=Host(`traefik.docker.localhost`)
+      - traefik.http.routers.dashboard.service=api@internal
+      - traefik.http.routers.dashboard.tls=true
+      - traefik.http.services.dashboard.loadbalancer.server.port=8080
     ports:
       - 80:80
       - 443:443
-      # Expose traefik dashboard on port 8080. Dashboard is enabled by passing `--api.insecure=true` option.
-      - 8080:8080
     volumes:
       - ./traefik.yaml:/etc/traefik/traefik.yaml
       # Allow traefik to listen to docker events.
