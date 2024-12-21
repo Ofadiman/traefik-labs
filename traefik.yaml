@@ -15,6 +15,10 @@ entryPoints:
           to: webSecure
   webSecure:
     address: :443
+experimental:
+  localPlugins:
+    requestId:
+      moduleName: github.com/ofadiman/request-id
 log:
   level: INFO
 metrics:

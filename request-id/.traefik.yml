@@ -1,0 +1,5 @@
+displayName: Request Id
+import: github.com/ofadiman/request-id
+summary: Plugin sets X-Request-Id header if the header is missing from request.
+testData: {}
+type: middleware

@@ -11,7 +11,7 @@ restart: stop up
 
 .PHONY: logs
 logs:
-	docker compose logs --follow
+	docker compose logs traefik --follow
 
 .PHONY: down
 down:
