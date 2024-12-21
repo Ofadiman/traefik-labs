@@ -20,6 +20,7 @@ log:
 metrics:
   # Prometheus metrics are available at http://localhost:8080/metrics.
   prometheus: {}
+ping: {}
 providers:
   docker:
     exposedByDefault: false

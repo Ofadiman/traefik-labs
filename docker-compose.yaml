@@ -39,11 +39,19 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
   traefik:
+    healthcheck:
+      interval: 5s
+      retries: 5
+      start_period: 5s
+      test:
+        - CMD
+        - traefik
+        - healthcheck
+      timeout: 1s
     image: traefik:v3.2.3
     ports:
       - 80:80
       - 443:443
-      - 420:420
       # Expose traefik dashboard on port 8080. Dashboard is enabled by passing `--api.insecure=true` option.
       - 8080:8080
     volumes:
