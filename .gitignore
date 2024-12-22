@@ -1,4 +1,4 @@
-request-id/vendor/
+**/vendor/
 
 tls-certificate.pem
 tls-key.pem

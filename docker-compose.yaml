@@ -34,7 +34,7 @@ services:
       - 443:443
     volumes:
       - ./dynamic.yaml:/etc/traefik/dynamic.yaml
-      - ./request-id:/plugins-local/src/github.com/ofadiman/request-id
+      - ./plugins/request-id:/plugins-local/src/github.com/ofadiman/request-id
       - ./tls-certificate.pem:/etc/traefik/tls-certificate.pem
       - ./tls-key.pem:/etc/traefik/tls-key.pem
       - ./traefik.yaml:/etc/traefik/traefik.yaml
