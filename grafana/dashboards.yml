@@ -1,0 +1,12 @@
+apiVersion: 1
+providers:
+  - disableDeletion: false
+    editable: true
+    folder: ""
+    folderUid: ""
+    name: default
+    options:
+      path: /etc/grafana/provisioning/dashboards
+    orgId: 1
+    type: file
+    updateIntervalSeconds: 10

@@ -32,7 +32,7 @@ providers:
     endpoint: tcp://docker-socket-proxy:2375
     exposedByDefault: false
   file:
-    filename: /etc/traefik/dynamic.yaml
+    filename: /etc/traefik/dynamic.yml
     watch: true
 serversTransport:
   forwardingTimeouts:

@@ -8,16 +8,16 @@ services:
   grafana:
     image: grafana/grafana-oss:11.4.0
     volumes:
-      - ./dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
-      - ./grafana-data-sources.yml:/etc/grafana/provisioning/datasources/grafana-data-sources.yml
-      - ./grafana.ini:/etc/grafana/grafana.ini
-      - ./traefik-dashboard.json:/etc/grafana/provisioning/dashboards/traefik-dashboard.json
+      - ./grafana/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./grafana/dashboards/traefik.json:/etc/grafana/provisioning/dashboards/traefik.json
+      - ./grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
   nginx:
     image: nginx:1.27.3
   prometheus:
     image: prom/prometheus:v3.0.1
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
   traefik:
     healthcheck:
       interval: 5s
@@ -33,11 +33,11 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./dynamic.yaml:/etc/traefik/dynamic.yaml
       - ./plugins/request-id:/plugins-local/src/github.com/ofadiman/request-id
       - ./tls-certificate.pem:/etc/traefik/tls-certificate.pem
       - ./tls-key.pem:/etc/traefik/tls-key.pem
-      - ./traefik.yaml:/etc/traefik/traefik.yaml
+      - ./traefik/dynamic.yml:/etc/traefik/dynamic.yml
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml
   whoami:
     deploy:
       replicas: 2
