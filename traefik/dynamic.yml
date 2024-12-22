@@ -45,18 +45,34 @@ http:
   services:
     grafana:
       loadBalancer:
+        healthCheck:
+          interval: 5s
+          path: /api/health
+          timeout: 1s
         servers:
           - url: http://grafana:3000
     nginx:
       loadBalancer:
+        healthCheck:
+          interval: 5s
+          path: /health
+          timeout: 1s
         servers:
           - url: http://nginx:80
     prometheus:
       loadBalancer:
+        healthCheck:
+          interval: 5s
+          path: /-/healthy
+          timeout: 1s
         servers:
           - url: http://prometheus:9090
     whoami:
       loadBalancer:
+        healthCheck:
+          interval: 5s
+          path: /health
+          timeout: 1s
         servers:
           - url: http://whoami:80
 tls:

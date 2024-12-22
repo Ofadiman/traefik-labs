@@ -6,7 +6,7 @@ up:
 stop:
 	docker compose stop
 
-restart: stop up
+restart: down up
 
 logs:
 	docker compose logs traefik --follow
