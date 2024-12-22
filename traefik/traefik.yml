@@ -4,7 +4,7 @@ accessLog:
       - "404"
 api:
   dashboard: true
-  insecure: true
+  insecure: false
 entryPoints:
   web:
     address: :80
