@@ -7,13 +7,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
   grafana:
     image: grafana/grafana-oss:11.4.0
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.grafana.entrypoints=webSecure
-      - traefik.http.routers.grafana.rule=Host(`grafana.docker.localhost`)
-      - traefik.http.routers.grafana.service=grafana
-      - traefik.http.routers.grafana.tls=true
-      - traefik.http.services.grafana.loadbalancer.server.port=3000
     volumes:
       - ./dashboard.yml:/etc/grafana/provisioning/dashboards/dashboard.yml
       - ./grafana-data-sources.yml:/etc/grafana/provisioning/datasources/grafana-data-sources.yml
@@ -21,23 +14,8 @@ services:
       - ./traefik-dashboard.json:/etc/grafana/provisioning/dashboards/traefik-dashboard.json
   nginx:
     image: nginx:1.27.3
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.nginx.entrypoints=webSecure
-      - traefik.http.routers.nginx.middlewares=basic-auth@file,content-compression@file
-      - traefik.http.routers.nginx.rule=Host(`nginx.docker.localhost`)
-      - traefik.http.routers.nginx.service=nginx
-      - traefik.http.routers.nginx.tls=true
-      - traefik.http.services.nginx.loadbalancer.server.port=80
   prometheus:
     image: prom/prometheus:v3.0.1
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.prometheus.entrypoints=webSecure
-      - traefik.http.routers.prometheus.rule=Host(`prometheus.docker.localhost`)
-      - traefik.http.routers.prometheus.service=prometheus
-      - traefik.http.routers.prometheus.tls=true
-      - traefik.http.services.prometheus.loadbalancer.server.port=9090
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
   traefik:
@@ -51,14 +29,6 @@ services:
         - healthcheck
       timeout: 1s
     image: traefik:v3.2.3
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.dashboard.entrypoints=webSecure
-      - traefik.http.routers.dashboard.middlewares=basic-auth@file
-      - traefik.http.routers.dashboard.rule=Host(`traefik.docker.localhost`)
-      - traefik.http.routers.dashboard.service=api@internal
-      - traefik.http.routers.dashboard.tls=true
-      - traefik.http.services.dashboard.loadbalancer.server.port=8080
     ports:
       - 80:80
       - 443:443
@@ -72,11 +42,3 @@ services:
     deploy:
       replicas: 2
     image: traefik/whoami:v1.10
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.whoami.entrypoints=webSecure
-      - traefik.http.routers.whoami.middlewares=content-compression@file,request-id@file
-      - traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)
-      - traefik.http.routers.whoami.service=whoami
-      - traefik.http.routers.whoami.tls=true
-      - traefik.http.services.whoami.loadbalancer.server.port=80

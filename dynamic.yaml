@@ -1,8 +1,5 @@
 http:
   middlewares:
-    request-id:
-      plugin:
-        requestId: true
     basic-auth:
       basicauth:
         users:
@@ -11,6 +8,57 @@ http:
     content-compression:
       compress:
         minresponsebodybytes: 200
+    request-id:
+      plugin:
+        requestId: true
+  routers:
+    dashboard:
+      middlewares:
+        - request-id@file
+        - content-compression@file
+        - basic-auth@file
+      rule: Host(`traefik.docker.localhost`)
+      service: api@internal
+      tls: true
+    grafana:
+      rule: Host(`grafana.docker.localhost`)
+      service: grafana
+      tls: true
+    nginx:
+      middlewares:
+        - request-id@file
+        - content-compression@file
+      rule: Host(`nginx.docker.localhost`)
+      service: nginx
+      tls: true
+    prometheus:
+      rule: Host(`prometheus.docker.localhost`)
+      service: prometheus
+      tls: true
+    whoami:
+      middlewares:
+        - request-id@file
+        - content-compression@file
+      rule: Host(`whoami.docker.localhost`)
+      service: whoami
+      tls: true
+  services:
+    grafana:
+      loadBalancer:
+        servers:
+          - url: http://grafana:3000
+    nginx:
+      loadBalancer:
+        servers:
+          - url: http://nginx:80
+    prometheus:
+      loadBalancer:
+        servers:
+          - url: http://prometheus:9090
+    whoami:
+      loadBalancer:
+        servers:
+          - url: http://whoami:80
 tls:
   stores:
     default:
