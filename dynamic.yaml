@@ -1,3 +1,16 @@
+http:
+  middlewares:
+    request-id:
+      plugin:
+        requestId: true
+    basic-auth:
+      basicauth:
+        users:
+          # Middleware requires basic auth (admin:password) to load nginx page.
+          - admin:$2y$05$og5odDYumPu9AcYjsQVTjeQtQHFQSRsjZjAAgERYeqYx932c7lU5.
+    content-compression:
+      compress:
+        minresponsebodybytes: 200
 tls:
   stores:
     default:

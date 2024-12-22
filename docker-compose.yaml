@@ -17,12 +17,8 @@ services:
     image: nginx:1.27.3
     labels:
       - traefik.enable=true
-      # Middleware requires basic auth (admin:password) to load nginx page.
-      - traefik.http.middlewares.basic-auth-protection.basicauth.users=admin:$$2y$$05$$og5odDYumPu9AcYjsQVTjeQtQHFQSRsjZjAAgERYeqYx932c7lU5.
-      - traefik.http.middlewares.content-compression.compress.minresponsebodybytes=200
-      - traefik.http.middlewares.content-compression.compress=true
       - traefik.http.routers.nginx.entrypoints=webSecure
-      - traefik.http.routers.nginx.middlewares=basic-auth-protection@docker,content-compression@docker
+      - traefik.http.routers.nginx.middlewares=basic-auth@file,content-compression@file
       - traefik.http.routers.nginx.rule=Host(`nginx.docker.localhost`)
       - traefik.http.routers.nginx.service=nginx
       - traefik.http.routers.nginx.tls=true
@@ -51,9 +47,8 @@ services:
     image: traefik:v3.2.3
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.basic-auth-protection.basicauth.users=admin:$$2y$$05$$og5odDYumPu9AcYjsQVTjeQtQHFQSRsjZjAAgERYeqYx932c7lU5.
       - traefik.http.routers.dashboard.entrypoints=webSecure
-      - traefik.http.routers.dashboard.middlewares=basic-auth-protection@docker
+      - traefik.http.routers.dashboard.middlewares=basic-auth@file
       - traefik.http.routers.dashboard.rule=Host(`traefik.docker.localhost`)
       - traefik.http.routers.dashboard.service=api@internal
       - traefik.http.routers.dashboard.tls=true
@@ -75,11 +70,8 @@ services:
     image: traefik/whoami:v1.10
     labels:
       - traefik.enable=true
-      - traefik.http.middlewares.request-id.plugin.requestId
-      - traefik.http.middlewares.content-compression.compress.minresponsebodybytes=200
-      - traefik.http.middlewares.content-compression.compress=true
       - traefik.http.routers.whoami.entrypoints=webSecure
-      - traefik.http.routers.whoami.middlewares=content-compression@docker,request-id@docker
+      - traefik.http.routers.whoami.middlewares=content-compression@file,request-id@file
       - traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)
       - traefik.http.routers.whoami.service=whoami
       - traefik.http.routers.whoami.tls=true
