@@ -32,3 +32,8 @@ providers:
   file:
     filename: /etc/traefik/dynamic.yaml
     watch: true
+serversTransport:
+  forwardingTimeouts:
+    dialTimeout: 5s
+    idleConnTimeout: 10s
+    responseHeaderTimeout: 5s
