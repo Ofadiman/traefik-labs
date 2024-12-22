@@ -17,7 +17,7 @@ http:
         - request-id@file
         - content-compression@file
         - basic-auth@file
-      rule: Host(`traefik.docker.localhost`)
+      rule: Host(`traefik.docker.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
       service: api@internal
       tls: true
     grafana:
